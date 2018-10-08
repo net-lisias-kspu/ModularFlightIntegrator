@@ -23,10 +23,17 @@ Currently the code is in a rough shape and if multiple mods tries to override th
 
 This plugin is of no direct interest to end user but a least two mods using it should be out soon-ish so here it is.
 
-### License:
+## Installation
+
+To install, place the GameData folder inside your Kerbal Space Program folder.
+
+**REMOVE ANY OLD VERSIONS OF THE PRODUCT BEFORE INSTALLING**.
+
 ### Dependencies
 * Hard Dependencies
 	* [KSP API Extensions/L](https://github.com/net-lisias-ksp/KSPAPIExtensions) 2.0 or newer
+
+### Licensing
 
 MIT. [See here](./LICENSE).
 
