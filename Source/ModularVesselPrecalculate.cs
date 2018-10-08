@@ -108,10 +108,7 @@ namespace ModularFI
             if (lastMainPhysics == Time.fixedTime)
                 return;
 
-            if (mainPhysicsOverride != null)
-                mainPhysicsOverride(doKillChecks);
-            else
-                base.MainPhysics(doKillChecks);
+            (mainPhysicsOverride ?? base.MainPhysics)(doKillChecks);
 
             lastMainPhysics = Time.fixedTime;
         }
@@ -140,10 +137,7 @@ namespace ModularFI
         /// </summary>
         public override void ApplyVelocityCorrection()
         {
-            if (applyVelocityCorrectionOverride != null)
-                applyVelocityCorrectionOverride();
-            else
-                base.ApplyVelocityCorrection();
+			(applyVelocityCorrectionOverride ?? base.ApplyVelocityCorrection)();
         }
 
         private static Action goOnRailsOverride;
@@ -170,10 +164,7 @@ namespace ModularFI
         /// </summary>
         public override void GoOnRails()
         {
-            if (goOnRailsOverride != null)
-                goOnRailsOverride();
-            else
-                base.GoOnRails();
+			(goOnRailsOverride ?? base.GoOnRails)();
         }
 
         private static Action goOffRailsOverride;
@@ -200,10 +191,7 @@ namespace ModularFI
         /// </summary>
         public override void GoOffRails()
         {
-            if (goOffRailsOverride != null)
-                goOffRailsOverride();
-            else
-                base.GoOffRails();
+			(goOffRailsOverride ?? base.GoOffRails)();
         }
 
         //protected override void StartEasing()
@@ -241,10 +229,7 @@ namespace ModularFI
         /// </summary>
         public override void CalculateGravity()
         {
-            if (calculateGravityOverride != null)
-                calculateGravityOverride();
-            else
-                base.CalculateGravity();
+			(calculateGravityOverride ?? base.CalculateGravity)();
         }
 
         public void BaseCalculateGravity()
@@ -291,10 +276,7 @@ namespace ModularFI
         /// </summary>
         public override void CalculatePhysicsStats()
         {
-            if (calculatePhysicsStatsOverride != null)
-                calculatePhysicsStatsOverride();
-            else
-                base.CalculatePhysicsStats();
+            (calculatePhysicsStatsOverride ?? base.CalculatePhysicsStats)();
         }
 
         //public override bool isEasingGravity { get; set; }

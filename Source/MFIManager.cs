@@ -12,7 +12,7 @@ namespace ModularFI
 
         private void Start()
         {
-            var fiw = VesselModuleManager.GetWrapper(typeof (FlightIntegrator));
+			VesselModuleManager.VesselModuleWrapper fiw = VesselModuleManager.GetWrapper(typeof (FlightIntegrator));
             if (fiw != null && fiw.active)
             {
                 print("[MFIManager] FlightIntegrator is active. Deactivating it");
@@ -21,7 +21,7 @@ namespace ModularFI
             }
             // Should we display this only if we deactivated the stock FI ?
             string msg = "[MFIManager] Current active VesselModule : \n";
-            foreach (var vesselModuleWrapper in VesselModuleManager.GetModules(false, false))
+            foreach (VesselModuleManager.VesselModuleWrapper vesselModuleWrapper in VesselModuleManager.GetModules(false, false))
             {
                 msg += "[MFIManager]  " + vesselModuleWrapper.type.ToString() + " active=" + vesselModuleWrapper.active +
                        " order=" + vesselModuleWrapper.order + "\n";
