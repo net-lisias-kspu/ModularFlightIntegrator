@@ -44,5 +44,11 @@ namespace ModularFI
                 vessel.gameObject.AddComponent<ModularVesselPrecalculate>();
             }
         }
+        
+		private static readonly KSPe.Util.Log.Logger log = KSPe.Util.Log.Logger.CreateForType<MFIManager>(true);
+		private static void print(string msg)
+		{
+			log.info(msg);
+		}
     }
 }

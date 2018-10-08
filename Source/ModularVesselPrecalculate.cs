@@ -93,7 +93,7 @@ namespace ModularFI
                 mainPhysicsOverride = act;
                 return true;
             }
-
+            
             print("MainPhysics already has an override");
             return false;
         }
@@ -280,5 +280,11 @@ namespace ModularFI
         }
 
         //public override bool isEasingGravity { get; set; }
+        
+		private static readonly KSPe.Util.Log.Logger log = KSPe.Util.Log.Logger.CreateForType<ModularVesselPrecalculate>(true);
+		private static void print(string msg)
+		{
+			log.info(msg);
+		}
     }
 }

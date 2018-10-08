@@ -34,6 +34,6 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion(ModularFI.Version.Number)]
 [assembly: AssemblyFileVersion(ModularFI.Version.Number)]
-
-
 [assembly: KSPAssembly("ModularFlightIntegrator", ModularFI.Version.major, ModularFI.Version.minor)]
+
+[assembly: KSPAssemblyDependency("KSPe", 2, 0)]

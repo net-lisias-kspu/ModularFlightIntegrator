@@ -47,6 +47,9 @@
     <Reference Include="System">
       <HintPath>..\..\..\..\LIB\managed\1.4.1\System.dll</HintPath>
     </Reference>
+    <Reference Include="KSPe">
+      <HintPath>..\..\..\..\LIB\plugins\KSPe.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MFIManager.cs" />

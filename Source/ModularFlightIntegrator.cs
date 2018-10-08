@@ -1280,13 +1280,11 @@ namespace ModularFI
         {
             return base.CalculateAreaExposed(part);
         }
-
-        static void print(string msg)
-        {
-            MonoBehaviour.print("[ModularFlightIntegrator] " + msg);
-        }
-
-
+        
+		private static readonly KSPe.Util.Log.Logger log = KSPe.Util.Log.Logger.CreateForType<ModularFlightIntegrator>(true);
+		private static void print(string msg)
+		{
+			log.info(msg);
+		}
     }
-
 }
