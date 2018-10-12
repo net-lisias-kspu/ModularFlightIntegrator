@@ -5,9 +5,9 @@ ModularFlightIntegrator is a VesselModules that allows multiples mods to overrid
 
 ## In a Hurry
 
-* [Releases](https://github.com/net-lisias-kspu/ModularFlightIntegrator/tree/Archive)
-* [Source](https://github.com/net-lisias-kspu/ModularFlightIntegrator)
 * [Latest Release](https://github.com/net-lisias-kspu/ModularFlightIntegrator/releases)
+	+ [Binaries](https://github.com/net-lisias-kspu/ModularFlightIntegrator/tree/Archive)
+* [Source](https://github.com/net-lisias-kspu/ModularFlightIntegrator)
 * [Change Log](./CHANGE_LOG.md)
  
 
