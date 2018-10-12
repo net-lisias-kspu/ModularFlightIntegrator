@@ -1,14 +1,14 @@
 {
-	"NAME":		"Modular Flight Integrator Unofficial",
-	"URL":		"https://raw.githubusercontent.com/net-lisias-kspu/ModularFlightIntegrator/master/ModularFlightIntegrator.version",
-	"DOWNLOAD":	"https://github.com/net-lisias-kspu/ModularFlightIntegrator/releases",
-	"CHANGE_LOG":	 "https://raw.githubusercontent.com/net-lisias-kspu/ModularFlightIntegrator/master/CHANGE_LOG.md",
-	"CHANGE_LOG_URL":"https://raw.githubusercontent.com/net-lisias-kspu/ModularFlightIntegrator/master/CHANGES.md",
 	"GITHUB":{
 		"USERNAME": "net-lisias-kspu",
 		"REPOSITORY": "ModularFlightIntegrator",
 		"ALLOW_PRE_RELEASE": false
 		},
+	"NAME"		: "Modular Flight Integrator Unofficial",
+	"URL"		: "https://raw.githubusercontent.com/net-lisias-kspu/ModularFlightIntegrator/master/ModularFlightIntegrator.version",
+	"DOWNLOAD"	: "https://github.com/net-lisias-kspu/ModularFlightIntegrator/releases",
+	"CHANGE_LOG"	: "https://raw.githubusercontent.com/net-lisias-kspu/ModularFlightIntegrator/master/CHANGE_LOG.md",
+	"CHANGE_LOG_URL": "https://raw.githubusercontent.com/net-lisias-kspu/ModularFlightIntegrator/master/CHANGES.md",
 	"VERSION":{
 		"MAJOR":1,
 		"MINOR":2,
