@@ -1,9 +1,4 @@
 {
-	"GITHUB":{
-		"USERNAME": "net-lisias-kspu",
-		"REPOSITORY": "ModularFlightIntegrator",
-		"ALLOW_PRE_RELEASE": false
-		},
 	"NAME"		: "Modular Flight Integrator Unofficial",
 	"URL"		: "https://raw.githubusercontent.com/net-lisias-kspu/ModularFlightIntegrator/master/ModularFlightIntegrator.version",
 	"DOWNLOAD"	: "https://github.com/net-lisias-kspu/ModularFlightIntegrator/releases",
@@ -17,8 +12,7 @@
 		},
 	"KSP_VERSION":{
 		"MAJOR":1,
-		"MINOR":4,
-		"PATCH":1
+		"MINOR":4
 		},
 	"KSP_VERSION_MIN":{
 		"MAJOR":1,
