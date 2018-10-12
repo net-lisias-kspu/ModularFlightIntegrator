@@ -206,15 +206,22 @@ namespace ModularFI
             // Empty on purpose, see comment
         }
 
-        private void TimedFixedUpdate()
-        {
-            if (!gameObject.activeInHierarchy)
-                return;
+		private void TimedFixedUpdate()
+		{
+			if (!gameObject.activeInHierarchy)
+				return;
 
-            (fixedUpdateOverride ?? fixedUpdateOverride)(this);
-        }   
+			if (fixedUpdateOverride == null)
+			{
+				base.FixedUpdate();
+			}
+			else
+			{
+				fixedUpdateOverride(this);
+			}
+		}
 
-        public override void Update()
+		public override void Update()
         {
             // Empty on purpose, see comment of FixedUpdate
         }
