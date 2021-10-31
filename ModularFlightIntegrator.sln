@@ -18,8 +18,6 @@ Global
 		Policies = $0
 		$0.TextStylePolicy = $1
 		$1.FileWidth = 132
-		$1.TabsToSpaces = True
-		$1.NoTabsAfterNonTabs = True
 		$1.EolMarker = Unix
 		$1.scope = text/plain
 		$0.TextStylePolicy = $2

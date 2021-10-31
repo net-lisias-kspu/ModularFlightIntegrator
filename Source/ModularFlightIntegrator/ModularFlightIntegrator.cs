@@ -157,7 +157,7 @@ namespace ModularFI
 
         protected override void OnStart()
         {
-            print("MFI Start");
+            Log.trace("MFI Start");
             base.OnStart();
 
             string msg = "Start. VesselModule on vessel : \n";
@@ -168,19 +168,19 @@ namespace ModularFI
             // Register our replacement FixedUpdate to run at the same timing as the stock FlightIntegrator
             //TimingManager.UpdateAdd(TimingManager.TimingStage.FlightIntegrator, TimedUpdate);
             //TimingManager.FixedUpdateAdd(TimingManager.TimingStage.FlightIntegrator, TimedFixedUpdate);
-            print(msg);
+            Log.detail(msg);
         }
 
         //
         //protected override void HookVesselEvents()
         //{
-        //    //print("HookVesselEvents");
+        //    Log.trace("HookVesselEvents");
         //    base.HookVesselEvents();
         //}
         //
         //protected override void UnhookVesselEvents()
         //{
-        //    //print("UnhookVesselEvents");
+        //    Log.trace("UnhookVesselEvents");
         //    base.UnhookVesselEvents();
         //}
         //
@@ -193,10 +193,7 @@ namespace ModularFI
 
         public static bool RegisterFixedUpdateOverride(voidDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
+            if (!CheckSpaceCenter()) return false;
 
             if (fixedUpdateOverride == null)
             {
@@ -204,7 +201,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("FixedUpdate already has an override");
+            Log.warn("FixedUpdate already has an override");
             return false;
         }
 
@@ -228,10 +225,7 @@ namespace ModularFI
 
         public static bool RegisterCalculateShockTemperature(doubleDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateShockTemperatureOverride == null)
             {
@@ -239,7 +233,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateShockTemperature already has an override");
+            Log.warn("CalculateShockTemperature already has an override");
             return false;
         }
 
@@ -266,11 +260,7 @@ namespace ModularFI
 
         public static bool RegisterUpdateThermodynamicsOverride(voidDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (updateThermodynamicsOverride == null)
             {
@@ -278,7 +268,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("UpdateThermodynamics already has an override");
+            Log.warn("UpdateThermodynamics already has an override");
             return false;
         }
 
@@ -334,10 +324,7 @@ namespace ModularFI
 
         public static bool RegisterCalculateAnalyticTemperature(doubleDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateAnalyticTemperatureOverride == null)
             {
@@ -345,7 +332,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateAnalyticTemperature already has an override");
+            Log.warn("CalculateAnalyticTemperature already has an override");
             return false;
         }
 
@@ -370,11 +357,7 @@ namespace ModularFI
 
         public static bool RegisterUpdateOcclusionOverride(voidBoolDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (updateOcclusionOverride == null)
             {
@@ -382,7 +365,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("UpdateOcclusion already has an override");
+            Log.warn("UpdateOcclusion already has an override");
             return false;
         }
 
@@ -407,10 +390,7 @@ namespace ModularFI
 
         public static bool RegisterIntegrateOverride(voidPartDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
+            if (!CheckSpaceCenter()) return false;
 
             if (integrateOverride == null)
             {
@@ -418,7 +398,7 @@ namespace ModularFI
                 return true;
             }
             
-            print("Integrate already has an override");
+            Log.warn("Integrate already has an override");
             return false;
         }
 
@@ -449,11 +429,7 @@ namespace ModularFI
 
         public static bool RegisterIntegratePhysicalObjectsOverride(IntegratePhysicalObjectsDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (integratePhysicalObjectsOverride == null)
             {
@@ -461,7 +437,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("IntegratePhysicalObjects already has an override");
+            Log.warn("IntegratePhysicalObjects already has an override");
             return false;
         }
 
@@ -486,11 +462,7 @@ namespace ModularFI
 
         public static bool RegisterCalculatePressureOverride(voidDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (calculatePressureOverride == null)
             {
@@ -498,7 +470,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculatePressure already has an override");
+            Log.warn("CalculatePressure already has an override");
             return false;
         }
 
@@ -525,11 +497,7 @@ namespace ModularFI
 
         public static bool RegisterCalculateSunBodyFluxOverride(voidDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateSunBodyFluxOverride == null)
             {
@@ -537,7 +505,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateSunBodyFlux already has an override");
+            Log.warn("CalculateSunBodyFlux already has an override");
             return false;
         }
 
@@ -584,11 +552,7 @@ namespace ModularFI
 
         public static bool RegisterCalculateDensityThermalLerpOverride(doubleDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateDensityThermalLerpOverride == null)
             {
@@ -596,7 +560,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateDensityThermalLerp already has an override");
+            Log.warn("CalculateDensityThermalLerp already has an override");
             return false; 
         }
 
@@ -617,11 +581,7 @@ namespace ModularFI
 
         public static bool RegisterCalculateBackgroundRadiationTemperatureOverride(doubleDoubleDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateBackgroundRadiationTemperatureOverride == null)
             {
@@ -629,7 +589,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateBackgroundRadiationTemperature already has an override");
+            Log.warn("CalculateBackgroundRadiationTemperature already has an override");
             return false;
         }
 
@@ -649,11 +609,7 @@ namespace ModularFI
 
         public static bool RegisterCalculateConstantsVacuumOverride(voidDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateConstantsVacuumOverride == null)
             {
@@ -661,7 +617,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateConstantsVacuum already has an override");
+            Log.warn("CalculateConstantsVacuum already has an override");
             return false;
         }
 
@@ -681,11 +637,7 @@ namespace ModularFI
 
         public static bool RegistercalculateConstantsAtmosphereOverride(voidDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateConstantsAtmosphereOverride == null)
             {
@@ -693,7 +645,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateConstantsAtmosphere already has an override");
+            Log.warn("CalculateConstantsAtmosphere already has an override");
             return false;
         }
 
@@ -714,11 +666,7 @@ namespace ModularFI
 
         public static bool RegisterCalculateConvectiveCoefficientOverride(doubleDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateConvectiveCoefficientOverride == null)
             {
@@ -726,7 +674,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateConvectiveCoefficient already has an override");
+            Log.warn("CalculateConvectiveCoefficient already has an override");
             return false;
         }
 
@@ -747,11 +695,7 @@ namespace ModularFI
 
         public static bool RegisterCalculateConvectiveCoefficientNewtonianOverride(doubleDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateConvectiveCoefficientNewtonianOverride == null)
             {
@@ -759,7 +703,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateConvectiveCoefficientNewtonian already has an override");
+            Log.warn("CalculateConvectiveCoefficientNewtonian already has an override");
             return false;
         }
 
@@ -779,11 +723,7 @@ namespace ModularFI
 
         public static bool RegisterCalculateConvectiveCoefficientMachOverride(doubleDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateConvectiveCoefficientMachOverride == null)
             {
@@ -791,7 +731,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateConvectiveCoefficientMach already has an override");
+            Log.warn("CalculateConvectiveCoefficientMach already has an override");
             return false;
         }
 
@@ -811,11 +751,7 @@ namespace ModularFI
 
         public static bool RegisterUpdateAerodynamicsOverride(voidPartDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (updateAerodynamicsOverride == null)
             {
@@ -823,7 +759,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("UpdateAerodynamics already has an override");
+            Log.warn("UpdateAerodynamics already has an override");
             return false;
         }
 
@@ -853,11 +789,7 @@ namespace ModularFI
 
         public static bool RegisterCalculateDragValueOverride(doublePartDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateDragValueOverride == null)
             {
@@ -865,7 +797,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateDragValue already has an override");
+            Log.warn("CalculateDragValue already has an override");
             return false;
         }
 
@@ -895,11 +827,7 @@ namespace ModularFI
 
         public static bool RegisterUpdateThermalGraphOverride(voidDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (updateThermalGraphOverride == null)
             {
@@ -907,7 +835,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("UpdateThermalGraph already has an override");
+            Log.warn("UpdateThermalGraph already has an override");
             return false;
         }
 
@@ -933,10 +861,7 @@ namespace ModularFI
 
         public static bool RegisterUpdateCompoundParts(voidDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
+            if (!CheckSpaceCenter()) return false;
 
             if (updateCompoundPartsOverride == null)
             {
@@ -944,7 +869,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("UpdateCompoundParts already has an override");
+            Log.warn("UpdateCompoundParts already has an override");
             return false;
         }
 
@@ -969,10 +894,7 @@ namespace ModularFI
 
         public static bool RegisterSetSkinProperties(voidThermalDataDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
+            if (!CheckSpaceCenter()) return false;
 
             if (setSkinPropertiesOverride == null)
             {
@@ -980,7 +902,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("UpdateCompoundParts already has an override");
+            Log.warn("UpdateCompoundParts already has an override");
             return false;
         }
 
@@ -1005,11 +927,7 @@ namespace ModularFI
 
         public static bool RegisterUpdateConductionOverride(voidDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (updateConductionOverride == null)
             {
@@ -1017,7 +935,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("UpdateConduction already has an override");
+            Log.warn("UpdateConduction already has an override");
             return false;
         }
 
@@ -1047,11 +965,7 @@ namespace ModularFI
 
         public static bool RegisterUpdateConvectionOverride(voidThermalDataDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (updateConvectionOverride == null)
             {
@@ -1059,7 +973,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("UpdateConvection already has an override");
+            Log.warn("UpdateConvection already has an override");
             return false;
         }
 
@@ -1084,11 +998,7 @@ namespace ModularFI
 
         public static bool RegisterUpdateRadiationOverride(voidThermalDataDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (updateRadiationOverride == null)
             {
@@ -1096,7 +1006,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("UpdateConvection already has an override");
+            Log.warn("UpdateConvection already has an override");
             return false;
         }
 
@@ -1121,17 +1031,14 @@ namespace ModularFI
 
         public static bool RegisterUpdateMassStatsOverride(voidDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
+            if (!CheckSpaceCenter()) return false;
 
             if (updateMassStatsOverride == null)
             {
                 updateMassStatsOverride = dlg;
                 return true;
             }
-            print("UpdateMassStats already has an override");
+            Log.warn("UpdateMassStats already has an override");
             return false;
         }
 
@@ -1156,11 +1063,7 @@ namespace ModularFI
 
         public static bool RegisterGetSunAreaOverride(doubleThermalDataDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (updateGetSunAreaOverride == null)
             {
@@ -1168,7 +1071,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("GetSunArea already has an override");
+            Log.warn("GetSunArea already has an override");
             return false;
         }
 
@@ -1195,11 +1098,7 @@ namespace ModularFI
 
         public static bool RegisterGetBodyAreaOverride(doubleThermalDataDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (getBodyAreaOverride == null)
             {
@@ -1207,7 +1106,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("GetBodyArea already has an override");
+            Log.warn("GetBodyArea already has an override");
             return false;
         }
 
@@ -1227,11 +1126,6 @@ namespace ModularFI
         {
             return base.GetBodyArea(ptd);
         }
-        //
-
-
-
-
 
         //protected override double CalculateDragValue_Spherical(Part part)
         //{
@@ -1257,11 +1151,7 @@ namespace ModularFI
 
         public static bool RegisterCalculateAerodynamicAreaOverride(doublePartDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateAerodynamicAreaOverride == null)
             {
@@ -1269,7 +1159,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateAerodynamicArea already has an override");
+            Log.warn("CalculateAerodynamicArea already has an override");
             return false;
         }
 
@@ -1294,11 +1184,7 @@ namespace ModularFI
 
         public static bool RegisterCalculateAreaRadiativeOverride(doublePartDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateAreaRadiativeOverride == null)
             {
@@ -1306,7 +1192,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateAreaRadiative already has an override");
+            Log.warn("CalculateAreaRadiative already has an override");
             return false;
         }
 
@@ -1331,11 +1217,7 @@ namespace ModularFI
 
         public static bool RegisterCalculateAreaExposedOverride(doublePartDelegate dlg)
         {
-            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
-            {
-                print("You can only register on the SPACECENTER scene");
-            }
-
+            if (!CheckSpaceCenter()) return false;
 
             if (calculateAreaExposedOverride == null)
             {
@@ -1343,7 +1225,7 @@ namespace ModularFI
                 return true;
             }
 
-            print("CalculateAreaExposed already has an override");
+            Log.warn("CalculateAreaExposed already has an override");
             return false;
         }
 
@@ -1369,12 +1251,12 @@ namespace ModularFI
             return base.GetPhysicslessChildMass(part);
         }
 
-        static void print(string msg)
+        private static bool CheckSpaceCenter()
         {
-            MonoBehaviour.print("[ModularFlightIntegrator] " + msg);
+            if (GameScenes.SPACECENTER == HighLogic.LoadedScene) return true;
+
+            Log.error(typeof(ModularFlightIntegrator), "You can only register on the SPACECENTER scene");
+            return false;
         }
-
-
     }
-
 }

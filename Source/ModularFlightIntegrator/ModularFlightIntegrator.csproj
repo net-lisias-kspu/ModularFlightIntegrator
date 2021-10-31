@@ -54,6 +54,9 @@
       <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="KSPe.UI">
+      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MFIManager.cs" />
@@ -64,6 +67,9 @@
       <DependentUpon>Version.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\LegalMamboJambo.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="ModuleManagerSupport.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\Version.tt">

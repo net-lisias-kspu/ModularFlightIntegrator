@@ -54,7 +54,7 @@ namespace ModularFI
 			VesselModuleManager.VesselModuleWrapper fiw = VesselModuleManager.GetWrapper(typeof (FlightIntegrator));
             if (fiw != null && fiw.active)
             {
-                print("[MFIManager] FlightIntegrator is active. Deactivating it");
+                Log.detail("[MFIManager] FlightIntegrator is active. Deactivating it");
 
                 VesselModuleManager.SetWrapperActive(typeof (FlightIntegrator), false);
             }
@@ -65,7 +65,7 @@ namespace ModularFI
                 msg += "[MFIManager]  " + vesselModuleWrapper.type.ToString() + " active=" + vesselModuleWrapper.active +
                        " order=" + vesselModuleWrapper.order + "\n";
             }
-            print(msg);
+            Log.detail(msg);
 
             GameEvents.onVesselPrecalcAssign.Add(AddModularPrecalc);
         }
@@ -79,15 +79,9 @@ namespace ModularFI
         {
             if (!vessel.gameObject.GetComponent<ModularVesselPrecalculate>())
             {
-                //print("[MFIManager] Adding ModularVesselPrecalculate");
+                Log.dbg("[MFIManager] Adding ModularVesselPrecalculate");
                 vessel.gameObject.AddComponent<ModularVesselPrecalculate>();
             }
         }
-        
-		private static readonly KSPe.Util.Log.Logger log = KSPe.Util.Log.Logger.CreateForType<MFIManager>(true);
-		private static void print(string msg)
-		{
-			log.info(msg);
-		}
     }
 }
