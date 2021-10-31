@@ -1,5 +1,8 @@
 # Modular Flight Integrator :: Change Log
 
+* 2021-1031: 1.2.10.0 (Lisias) for KSP >= 1.4
+	+ Adding KSPe v2.4 facilities
+	+ Catching up with upstream's changes
 * 2018-1019: 1.2.5.1 (Lisias) for KSP 1.4
 	+ I goofed horribly on 1.2.4.10. Ungoofing... 
 	+ Bumping version to match upstream's
