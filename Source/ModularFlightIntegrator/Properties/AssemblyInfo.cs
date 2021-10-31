@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ModularFlightIntegrator")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Modular Flight Integrator /L Unleashed")]
+[assembly: AssemblyDescription("A VesselModule that allows multiples mods to override or insert code into various call of the stock FlightIntegrator")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ModularFlightIntegrator")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany(ModularFI.LegalMamboJambo.Company)]
+[assembly: AssemblyProduct(ModularFI.LegalMamboJambo.Product)]
+[assembly: AssemblyCopyright(ModularFI.LegalMamboJambo.Copyright)]
+[assembly: AssemblyTrademark(ModularFI.LegalMamboJambo.Trademark)]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -35,5 +35,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion(ModularFI.Version.Number)]
 [assembly: AssemblyFileVersion(ModularFI.Version.Number)]
 [assembly: KSPAssembly("ModularFlightIntegrator", ModularFI.Version.major, ModularFI.Version.minor)]
-
 [assembly: KSPAssemblyDependency("KSPe", 2, 0)]

@@ -1,5 +1,28 @@
 ﻿/*
-The MIT License (MIT)
+	This file is part of Modular Flight Integrator /L Unleashed
+		© 2019-2021 Lisias T : http://lisias.net <support@lisias.net>
+		© 2014-2018 Sarbian
+
+	Modular Flight Integrator /L is double licensed, as follows:
+
+		* SKL 1.0 : https://ksp.lisias.net/SKL-1_0.txt
+		* GPL 2.0 : https://www.gnu.org/licenses/gpl-2.0.txt
+
+	And you are allowed to choose the License that better suit your needs.
+
+	Modular Flight Integrator /L Unleashed is distributed in the hope that
+	it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+	warranty of	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+	You should have received a copy of the SKL Standard License 1.0
+	along with Modular Flight Integrator /L Unleashed.
+	If not, see <https://ksp.lisias.net/SKL-1_0.txt>.
+
+	You should have received a copy of the GNU General Public License 2.0
+	along with Modular Flight Integrator /L Unleashed.
+	If not, see <https://www.gnu.org/licenses/>.
+
+---- To satisfy the previous MIT Licensing terms ----
 
 Copyright (c) 2014 sarbian
 
@@ -13,14 +36,7 @@ subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-
 using System.Collections.Generic;
 using UnityEngine;
 
