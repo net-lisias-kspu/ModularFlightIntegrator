@@ -26,6 +26,8 @@ using UnityEngine;
 
 namespace ModularFI
 {
+    // 9 is the Timing of the stock FlightIntegrator but using it leads to race/exec order problems with FAR+Principia.
+    [DefaultExecutionOrder(10)]
     public class ModularFlightIntegrator : FlightIntegrator
     {
 
@@ -148,16 +150,9 @@ namespace ModularFI
                 msg += "  " + vm.GetType().Name + "\n";
             }
             // Register our replacement FixedUpdate to run at the same timing as the stock FlightIntegrator
-            TimingManager.UpdateAdd(TimingManager.TimingStage.FlightIntegrator, TimedUpdate);
-            TimingManager.FixedUpdateAdd(TimingManager.TimingStage.FlightIntegrator, TimedFixedUpdate);
+            //TimingManager.UpdateAdd(TimingManager.TimingStage.FlightIntegrator, TimedUpdate);
+            //TimingManager.FixedUpdateAdd(TimingManager.TimingStage.FlightIntegrator, TimedFixedUpdate);
             print(msg);
-        }
-
-        protected override void OnDestroy()
-        {
-            TimingManager.UpdateRemove(TimingManager.TimingStage.FlightIntegrator, TimedUpdate);
-            TimingManager.FixedUpdateRemove(TimingManager.TimingStage.FlightIntegrator, TimedFixedUpdate);
-            base.OnDestroy();
         }
 
         //
@@ -203,37 +198,16 @@ namespace ModularFI
         // replace our FixedUpdate with something that does nothing since we will call TimedFixedUpdate
         protected override void FixedUpdate()
         {
-            // Empty on purpose, see comment
+            if (fixedUpdateOverride == null)
+            {
+                base.FixedUpdate();
+            }
+            else
+            {
+                fixedUpdateOverride(this);
+            }
         }
-
-		private void TimedFixedUpdate()
-		{
-			if (!gameObject.activeInHierarchy)
-				return;
-
-			if (fixedUpdateOverride == null)
-			{
-				base.FixedUpdate();
-			}
-			else
-			{
-				fixedUpdateOverride(this);
-			}
-		}
-
-		public override void Update()
-        {
-            // Empty on purpose, see comment of FixedUpdate
-        }
-
-        private void TimedUpdate()
-        {
-            if (!gameObject.activeInHierarchy)
-                return;
-
-            base.Update();
-        }
-
+        
         private static doubleDelegate calculateShockTemperatureOverride;
 
         public static bool RegisterCalculateShockTemperature(doubleDelegate dlg)
@@ -255,10 +229,14 @@ namespace ModularFI
 
         public override double CalculateShockTemperature()
         {
-			return (calculateShockTemperatureOverride == null)
-				? base.CalculateShockTemperature()
-				: calculateShockTemperatureOverride(this)
-				;
+            if (calculateShockTemperatureOverride == null)
+            {
+                return base.CalculateShockTemperature();
+            }
+            else
+            {
+                return calculateShockTemperatureOverride(this);
+            }
         }
 
         public double BaseFICalculateShockTemperature()
@@ -357,10 +335,14 @@ namespace ModularFI
 
         public override double CalculateAnalyticTemperature()
         {
-            return calculateAnalyticTemperatureOverride == null
-                ? base.CalculateAnalyticTemperature()
-	            : calculateAnalyticTemperatureOverride(this)
-	            ;
+            if (calculateAnalyticTemperatureOverride == null)
+            {
+                return base.CalculateAnalyticTemperature();
+            }
+            else
+            {
+                return calculateAnalyticTemperatureOverride(this);
+            }
         }
 
         public double BaseFICalculateAnalyticTemperature()
@@ -604,14 +586,18 @@ namespace ModularFI
 
         public override double CalculateDensityThermalLerp()
         {
-			return calculateDensityThermalLerpOverride == null
-				? base.CalculateDensityThermalLerp()
-				: calculateDensityThermalLerpOverride(this)
-				;
-		}
+            if (calculateDensityThermalLerpOverride == null)
+            {
+                return base.CalculateDensityThermalLerp();
+            }
+            else
+            {
+                return calculateDensityThermalLerpOverride(this);
+            }
+        }
 
-		// TODO : CalculateBackgroundRadiationTemperature
-		private static doubleDoubleDelegate calculateBackgroundRadiationTemperatureOverride;
+        // TODO : CalculateBackgroundRadiationTemperature
+        private static doubleDoubleDelegate calculateBackgroundRadiationTemperatureOverride;
 
         public static bool RegisterCalculateBackgroundRadiationTemperatureOverride(doubleDoubleDelegate dlg)
         {
@@ -631,15 +617,19 @@ namespace ModularFI
             return false;
         }
 
-        protected override double CalculateBackgroundRadiationTemperature(double d)
+        protected override double CalculateBackgroundRadiationTemperature(double ambientTemp)
         {
-			return calculateBackgroundRadiationTemperatureOverride == null
-				? base.CalculateBackgroundRadiationTemperature(d)
-				: calculateBackgroundRadiationTemperatureOverride(this, d)
-				;
-		}
-		// TODO : CalculateConstantsVacuum
-		private static voidDelegate calculateConstantsVacuumOverride;
+            if (calculateBackgroundRadiationTemperatureOverride == null)
+            {
+                return base.CalculateBackgroundRadiationTemperature(ambientTemp);
+            }
+            else
+            {
+                return calculateBackgroundRadiationTemperatureOverride(this, ambientTemp);
+            }
+        }
+        // TODO : CalculateConstantsVacuum
+        private static voidDelegate calculateConstantsVacuumOverride;
 
         public static bool RegisterCalculateConstantsVacuumOverride(voidDelegate dlg)
         {
@@ -726,14 +716,18 @@ namespace ModularFI
 
         protected override double CalculateConvectiveCoefficient()
         {
-			return calculateConvectiveCoefficientOverride == null
-				? base.CalculateConvectiveCoefficient()
-				: calculateConvectiveCoefficientOverride(this)
-				;
-		}
-
-		// TODO : CalculateConvectiveCoefficientNewtonian
-		private static doubleDelegate calculateConvectiveCoefficientNewtonianOverride;
+            if (calculateConvectiveCoefficientOverride == null)
+            {
+                return base.CalculateConvectiveCoefficient();
+            }
+            else
+            {
+                return calculateConvectiveCoefficientOverride(this);
+            }
+        }
+        
+        // TODO : CalculateConvectiveCoefficientNewtonian
+        private static doubleDelegate calculateConvectiveCoefficientNewtonianOverride;
 
         public static bool RegisterCalculateConvectiveCoefficientNewtonianOverride(doubleDelegate dlg)
         {
@@ -755,13 +749,17 @@ namespace ModularFI
 
         protected override double CalculateConvectiveCoefficientNewtonian()
         {
-			return calculateConvectiveCoefficientNewtonianOverride == null
-				? base.CalculateConvectiveCoefficientNewtonian()
-				: calculateConvectiveCoefficientNewtonianOverride(this);
-		}
-		
-		// TODO : CalculateConvectiveCoefficientMach
-		private static doubleDelegate calculateConvectiveCoefficientMachOverride;
+            if (calculateConvectiveCoefficientNewtonianOverride == null)
+            {
+                return base.CalculateConvectiveCoefficientNewtonian();
+            }
+            else
+            {
+                return calculateConvectiveCoefficientNewtonianOverride(this);
+            }
+        }
+        // TODO : CalculateConvectiveCoefficientMach
+        private static doubleDelegate calculateConvectiveCoefficientMachOverride;
 
         public static bool RegisterCalculateConvectiveCoefficientMachOverride(doubleDelegate dlg)
         {
@@ -783,12 +781,17 @@ namespace ModularFI
 
         protected override double CalculateConvectiveCoefficientMach()
         {
-			return calculateConvectiveCoefficientMachOverride == null
-				? base.CalculateConvectiveCoefficientMach()
-				: calculateConvectiveCoefficientMachOverride(this);
-		}
+            if (calculateConvectiveCoefficientMachOverride == null)
+            {
+                return base.CalculateConvectiveCoefficientMach();
+            }
+            else
+            {
+                return calculateConvectiveCoefficientMachOverride(this);
+            }
+        }
 
-		private static voidPartDelegate updateAerodynamicsOverride;
+        private static voidPartDelegate updateAerodynamicsOverride;
 
         public static bool RegisterUpdateAerodynamicsOverride(voidPartDelegate dlg)
         {
@@ -852,18 +855,22 @@ namespace ModularFI
 
         protected override double CalculateDragValue(Part part)
         {
-			// CalculateDragValue_Spherical
-			// CalculateDragValue_Cylindrical
-			// CalculateDragValue_Conic
-			// CalculateDragValue_Cube
+            // CalculateDragValue_Spherical
+            // CalculateDragValue_Cylindrical
+            // CalculateDragValue_Conic
+            // CalculateDragValue_Cube
 
-			return calculateDragValueOverride == null 
-				? base.CalculateDragValue(part)
-				: calculateDragValueOverride(this, part)
-				;
-		}
+            if (calculateDragValueOverride == null)
+            {
+                return base.CalculateDragValue(part);
+            }
+            else
+            {
+                return calculateDragValueOverride(this, part);
+            }
+        }
 
-		public double BaseFICalculateDragValue(Part part)
+        public double BaseFICalculateDragValue(Part part)
         {
             return base.CalculateDragValue(part);
         }
@@ -1040,23 +1047,22 @@ namespace ModularFI
             return false;
         }
 
-		// TODO: This method was commented out. Why
-        public override void UpdateConvection(PartThermalData ptd)
-        {
-            if (updateConvectionOverride == null)
-            {
-                base.UpdateConvection(ptd);
-            }
-            else
-            {
-                updateConvectionOverride(this, ptd);
-            }
-        }
-        
-        public void BaseFIUpdateConvection(PartThermalData ptd)
-        {
-            base.UpdateConvection(ptd);
-        }
+        //protected override void UpdateConvection(PartThermalData ptd)
+        //{
+        //    if (updateConvectionOverride == null)
+        //    {
+        //        base.UpdateConvection(ptd);
+        //    }
+        //    else
+        //    {
+        //        updateConvectionOverride(this, ptd);
+        //    }
+        //}
+        //
+        //public void BaseFIUpdateConvection(PartThermalData ptd)
+        //{
+        //    base.UpdateConvection(ptd);
+        //}
 
         private static voidThermalDataDelegate updateRadiationOverride;
 
@@ -1095,7 +1101,40 @@ namespace ModularFI
             base.UpdateRadiation(ptd);
         }
 
-        // 
+        private static voidDelegate updateMassStatsOverride;
+
+        public static bool RegisterUpdateMassStatsOverride(voidDelegate dlg)
+        {
+            if (HighLogic.LoadedScene != GameScenes.SPACECENTER)
+            {
+                print("You can only register on the SPACECENTER scene");
+            }
+
+            if (updateMassStatsOverride == null)
+            {
+                updateMassStatsOverride = dlg;
+                return true;
+            }
+            print("UpdateMassStats already has an override");
+            return false;
+        }
+
+        protected override void UpdateMassStats()
+        {
+            if (updateMassStatsOverride == null)
+            {
+                base.UpdateMassStats();
+            }
+            else
+            {
+                updateMassStatsOverride(this);
+            }
+        }
+
+        public void BaseFIUpdateMassStats()
+        {
+            base.UpdateMassStats();
+        }
 
         private static doubleThermalDataDelegate updateGetSunAreaOverride;
 
@@ -1119,12 +1158,17 @@ namespace ModularFI
 
         public override double GetSunArea(PartThermalData ptd)
         {
-			return updateGetSunAreaOverride == null
-				? base.GetSunArea(ptd)
-				: updateGetSunAreaOverride(this, ptd);
-		}
+            if (updateGetSunAreaOverride == null)
+            {
+                return base.GetSunArea(ptd);
+            }
+            else
+            {
+                return updateGetSunAreaOverride(this, ptd);
+            }
+        }
 
-		public double BaseFIGetSunArea(PartThermalData ptd)
+        public double BaseFIGetSunArea(PartThermalData ptd)
         {
             return base.GetSunArea(ptd);
         }
@@ -1153,13 +1197,17 @@ namespace ModularFI
 
         public override double GetBodyArea(PartThermalData ptd)
         {
-			return getBodyAreaOverride == null
-				? base.GetBodyArea(ptd)
-				: getBodyAreaOverride(this, ptd)
-				;
-		}
+            if (getBodyAreaOverride == null)
+            {
+                return base.GetBodyArea(ptd);
+            }
+            else
+            {
+                return getBodyAreaOverride(this, ptd);
+            }
+        }
 
-		public double BaseFIBodyArea(PartThermalData ptd)
+        public double BaseFIBodyArea(PartThermalData ptd)
         {
             return base.GetBodyArea(ptd);
         }
@@ -1211,13 +1259,17 @@ namespace ModularFI
 
         protected override double CalculateAerodynamicArea(Part part)
         {
-			return calculateAerodynamicAreaOverride == null
-				? base.CalculateAerodynamicArea(part)
-				: calculateAerodynamicAreaOverride(this, part)
-				;
-		}
+            if (calculateAerodynamicAreaOverride == null)
+            {
+                return base.CalculateAerodynamicArea(part);
+            }
+            else
+            {
+                return calculateAerodynamicAreaOverride(this, part);
+            }
+        }
 
-		public double BaseFICalculateAerodynamicArea(Part part)
+        public double BaseFICalculateAerodynamicArea(Part part)
         {
             return base.CalculateAerodynamicArea(part);
         }
@@ -1244,13 +1296,17 @@ namespace ModularFI
 
         protected override double CalculateAreaRadiative(Part part)
         {
-			return calculateAreaRadiativeOverride == null
-				? base.CalculateAreaRadiative(part)
-				: calculateAreaRadiativeOverride(this, part)
-				;
-		}
+            if (calculateAreaRadiativeOverride == null)
+            {
+                return base.CalculateAreaRadiative(part);
+            }
+            else
+            {
+                return calculateAreaRadiativeOverride(this, part);
+            }
+        }
 
-		public double BaseFICalculateAreaRadiative(Part part)
+        public double BaseFICalculateAreaRadiative(Part part)
         {
             return base.CalculateAreaRadiative(part);
         }
@@ -1277,21 +1333,32 @@ namespace ModularFI
 
         protected override double CalculateAreaExposed(Part part)
         {
-            return (calculateAreaExposedOverride == null)
-                ? base.CalculateAreaExposed(part)
-                : calculateAreaExposedOverride(this, part)
-                ;
+            if (calculateAreaExposedOverride == null)
+            {
+                return base.CalculateAreaExposed(part);
+            }
+            else
+            {
+                return calculateAreaExposedOverride(this, part);
+            }
         }
 
         public double BaseFICalculateAreaExposed(Part part)
         {
             return base.CalculateAreaExposed(part);
         }
-        
-		private static readonly KSPe.Util.Log.Logger log = KSPe.Util.Log.Logger.CreateForType<ModularFlightIntegrator>(true);
-		private static void print(string msg)
-		{
-			log.info(msg);
-		}
+
+        public double BaseFIGetPhysicslessChildMass(Part part)
+        {
+            return base.GetPhysicslessChildMass(part);
+        }
+
+        static void print(string msg)
+        {
+            MonoBehaviour.print("[ModularFlightIntegrator] " + msg);
+        }
+
+
     }
+
 }

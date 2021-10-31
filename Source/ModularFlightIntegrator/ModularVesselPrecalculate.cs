@@ -3,52 +3,11 @@ using UnityEngine;
 
 namespace ModularFI
 {
-    public class ModularVesselPrecalculate : VesselPrecalculate
+    [DefaultExecutionOrder(-102)]
+    class ModularVesselPrecalculate : VesselPrecalculate
     {
         private float lastMainPhysics = 0;
-
-        public override void Awake()
-        {
-            TimingManager.UpdateAdd(TimingManager.TimingStage.Precalc, TimedUpdate);
-            TimingManager.FixedUpdateAdd(TimingManager.TimingStage.Precalc, TimedFixedUpdate);
-
-            base.Awake();
-        }
-
-        public override void OnDestroy()
-        {
-            TimingManager.UpdateRemove(TimingManager.TimingStage.Precalc, TimedUpdate);
-            TimingManager.FixedUpdateRemove(TimingManager.TimingStage.Precalc, TimedFixedUpdate);
-            base.OnDestroy();
-        }
-
-        public new void FixedUpdate()
-        {
-            // Empty on puprose. See ModularFlightIntegrator FixedUpdate comment
-        }
-
-        public void TimedFixedUpdate()
-        {
-            if (gameObject.activeInHierarchy && this.enabled)
-                base.FixedUpdate();
-        }
-
-        public override void Update()
-        {
-            // Empty on puprose. See ModularFlightIntegrator FixedUpdate comment
-        }
-
-        /// <summary>
-        /// Used for loaded/unpacked vessels so display matches physics. Runs most of what FixedUpdate does.
-        /// However, it does so with zero time offset and does not calc gravity (that happens in next fixed frame).
-        /// Finally, it signals to next fixed frame it doesn't have to rerun this stuff
-        /// </summary>
-        public void TimedUpdate()
-        {
-            if (gameObject.activeInHierarchy && this.enabled)
-                base.Update();
-        }
-
+        
         private static Action runFirstOverride;
 
         public static bool RegisterMainPhysicsOverride(Action act)
@@ -93,7 +52,7 @@ namespace ModularFI
                 mainPhysicsOverride = act;
                 return true;
             }
-            
+
             print("MainPhysics already has an override");
             return false;
         }
@@ -108,7 +67,10 @@ namespace ModularFI
             if (lastMainPhysics == Time.fixedTime)
                 return;
 
-            (mainPhysicsOverride ?? base.MainPhysics)(doKillChecks);
+            if (mainPhysicsOverride != null)
+                mainPhysicsOverride(doKillChecks);
+            else
+                base.MainPhysics(doKillChecks);
 
             lastMainPhysics = Time.fixedTime;
         }
@@ -137,7 +99,10 @@ namespace ModularFI
         /// </summary>
         public override void ApplyVelocityCorrection()
         {
-			(applyVelocityCorrectionOverride ?? base.ApplyVelocityCorrection)();
+            if (applyVelocityCorrectionOverride != null)
+                applyVelocityCorrectionOverride();
+            else
+                base.ApplyVelocityCorrection();
         }
 
         private static Action goOnRailsOverride;
@@ -164,7 +129,10 @@ namespace ModularFI
         /// </summary>
         public override void GoOnRails()
         {
-			(goOnRailsOverride ?? base.GoOnRails)();
+            if (goOnRailsOverride != null)
+                goOnRailsOverride();
+            else
+                base.GoOnRails();
         }
 
         private static Action goOffRailsOverride;
@@ -191,7 +159,10 @@ namespace ModularFI
         /// </summary>
         public override void GoOffRails()
         {
-			(goOffRailsOverride ?? base.GoOffRails)();
+            if (goOffRailsOverride != null)
+                goOffRailsOverride();
+            else
+                base.GoOffRails();
         }
 
         //protected override void StartEasing()
@@ -229,17 +200,10 @@ namespace ModularFI
         /// </summary>
         public override void CalculateGravity()
         {
-			(calculateGravityOverride ?? base.CalculateGravity)();
-        }
-
-        public void BaseCalculateGravity()
-        {
-            base.CalculateGravity();
-        }
-
-        public Vessel GetVessel()
-        {
-            return vessel;
+            if (calculateGravityOverride != null)
+                calculateGravityOverride();
+            else
+                base.CalculateGravity();
         }
 
         ///// <summary>
@@ -276,15 +240,12 @@ namespace ModularFI
         /// </summary>
         public override void CalculatePhysicsStats()
         {
-            (calculatePhysicsStatsOverride ?? base.CalculatePhysicsStats)();
+            if (calculatePhysicsStatsOverride != null)
+                calculatePhysicsStatsOverride();
+            else
+                base.CalculatePhysicsStats();
         }
 
         //public override bool isEasingGravity { get; set; }
-        
-		private static readonly KSPe.Util.Log.Logger log = KSPe.Util.Log.Logger.CreateForType<ModularVesselPrecalculate>(true);
-		private static void print(string msg)
-		{
-			log.info(msg);
-		}
     }
 }
