@@ -84,7 +84,7 @@ namespace ModularFI
 		public const int build = <#= build #>;
 		public const string Number = "<#= major #>.<#= minor #>.<#= patch #>.<#= build #>";
 		public const string Vendor = "net.lisias.ksp";
-		public const string Namespace = "ModularFligthIntegrator";
+		public const string Namespace = "ModularFlightIntegrator";
 #if DEBUG
         public const string Text = Number + " /L Unleashed DEBUG";
 #else
